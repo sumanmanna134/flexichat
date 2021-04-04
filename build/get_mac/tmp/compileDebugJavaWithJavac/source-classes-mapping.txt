@@ -1,0 +1,4 @@
+com/vdtlabs/get_mac/BuildConfig.java
+ com.vdtlabs.get_mac.BuildConfig
+com/vdtlabs/get_mac/GetMacPlugin.java
+ com.vdtlabs.get_mac.GetMacPlugin
