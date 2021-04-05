@@ -4,6 +4,8 @@ import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/widget/category_selector.dart';
 import 'package:flexi_chat/widget/custom_drawer.dart';
 import 'package:flexi_chat/widget/fancy_fab_button.dart';
+import 'package:flexi_chat/widget/favorite_contacts.dart';
+import 'package:flexi_chat/widget/recent_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: CustomDrawer() ,
       ),
+      backgroundColor: AppColor.colorPrimary,
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.menu), iconSize: 30.0,color: Colors.white, onPressed: (){
          _scaffoldKey.currentState.openDrawer();
@@ -43,11 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
     body: Column(
         children: [
           CategorySelector(),
-          Expanded(child: Container(
-            decoration: BoxDecoration(color:Colors.black26, borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0) , topRight:Radius.circular(30.0) )),
+
+          Expanded(child:
+          Container(
+            decoration: BoxDecoration(color:Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0) , topRight:Radius.circular(30.0) )),
             child: Column(
               children: [
-                Text("")
+                FavoriteContacts(),
+                RecentChats()
               ],
             ),
           ))
