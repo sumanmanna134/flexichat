@@ -1,4 +1,6 @@
 
+import 'package:flexi_chat/utils/images.dart';
+
 import 'user_model.dart';
 
 class Message {
@@ -22,44 +24,44 @@ class Message {
 final User currentUser = User(
   id: 0,
   name: 'Current User',
-  imageUrl: 'assets/images/greg.jpg',
+  imageUrl: Images.GREG,
 );
 
 // USERS
 final User greg = User(
   id: 1,
   name: 'Greg',
-  imageUrl: 'assets/images/greg.jpg',
+  imageUrl: Images.GREG,
 );
 final User james = User(
   id: 2,
   name: 'James',
-  imageUrl: 'assets/images/james.jpg',
+  imageUrl: Images.JAMES,
 );
 final User john = User(
   id: 3,
   name: 'John',
-  imageUrl: 'assets/images/john.jpg',
+  imageUrl: Images.JHON,
 );
 final User olivia = User(
   id: 4,
   name: 'Olivia',
-  imageUrl: 'assets/images/olivia.jpg',
+  imageUrl: Images.OLIVIA
 );
 final User sam = User(
   id: 5,
   name: 'Sam',
-  imageUrl: 'assets/images/sam.jpg',
+  imageUrl: Images.SAM,
 );
 final User sophia = User(
   id: 6,
   name: 'Sophia',
-  imageUrl: 'assets/images/sophia.jpg',
+  imageUrl: Images.SHOPIA,
 );
 final User steven = User(
   id: 7,
   name: 'Steven',
-  imageUrl: 'assets/images/steven.jpg',
+  imageUrl: Images.STEFEN,
 );
 
 // FAVORITE CONTACTS

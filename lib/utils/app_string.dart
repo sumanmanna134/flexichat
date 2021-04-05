@@ -13,6 +13,16 @@ abstract class AppString{
   static const String SETTINGS = "Settings";
   static const String TODO = "Keep Your Tasks";
   static const String UPI_QR = "UPI QR";
+  static const String FAVOURITE_CONTACTS = "Favourite Contacts";
+
+
+
+
+
+  static List<String> dropDownList=["TEXT","PHONE"];
+
+  static String imageFolder="Output";
+  static String appDirectory="E:\\QR_CODE";
 
 
 }

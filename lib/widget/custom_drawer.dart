@@ -1,3 +1,4 @@
+import 'package:flexi_chat/screen/qr_upi/qr_index_page.dart';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListTile(
           leading: Icon(Icons.qr_code), title: Text(AppString.UPI_QR),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> QRHomePage()));
           },
         ),
         ListTile(
