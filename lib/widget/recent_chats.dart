@@ -1,4 +1,5 @@
 import 'package:flexi_chat/model/message_model.dart';
+import 'package:flexi_chat/screen/chatScreen.dart';
 import 'package:flutter/material.dart';
 class RecentChats extends StatelessWidget {
   @override
@@ -14,6 +15,9 @@ class RecentChats extends StatelessWidget {
           itemBuilder:(BuildContext context, int index){
           final Message chat = chats[index];
           return GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: favorites[index],)));
+            },
             child: Container(
               margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 20.0),
               padding:

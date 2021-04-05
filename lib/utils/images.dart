@@ -7,5 +7,7 @@ abstract class Images{
   static const String JAMES = "assets/images/james.jpg";
   static const String JHON = "assets/images/john.jpg";
   static const String OLIVIA = "assets/images/olivia.jpg";
+  static const String appIcon = "assets/images/icon.png";
+
 
 }

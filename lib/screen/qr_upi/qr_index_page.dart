@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/utils/captureAndSavePng.dart';
+import 'package:flexi_chat/utils/images.dart';
 import 'package:flexi_chat/widget/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -22,6 +23,7 @@ class _QRHomePageState extends State<QRHomePage> {
   GlobalKey imageCaptureKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     if(kIsWeb){
       return MyScaffold(appBarTitle: "QR Code Generate", actions: [IconButton(icon: Icon(Icons.file_download), onPressed: (){})],
         body: Row(
@@ -38,9 +40,9 @@ class _QRHomePageState extends State<QRHomePage> {
                     value:qrType,
                     isExpanded: true,
                     onChanged: (data){
-                      qrType = data;
-                      setState(() {
 
+                      setState(() {
+                        qrType = data;
                       });
 
 
@@ -60,6 +62,7 @@ class _QRHomePageState extends State<QRHomePage> {
                         decoration:
                         InputDecoration(border: InputBorder.none),
                       )),
+                  SizedBox(height: 10,),
                   RaisedButton(
                       color: AppColor.colorPrimary,
                       child: Text("GENERATE", style: TextStyle(color: Colors.white),),
@@ -92,6 +95,10 @@ class _QRHomePageState extends State<QRHomePage> {
                           color: Colors.white,
                           child:QrImage(
                             data: textToConvert,
+                            embeddedImage: AssetImage(Images.appIcon),
+                            embeddedImageStyle: QrEmbeddedImageStyle(
+                              size: Size(80, 80),
+                            ),
                             version: QrVersions.auto,
                             size: 200,
 
@@ -103,6 +110,7 @@ class _QRHomePageState extends State<QRHomePage> {
                         child: Text("${AppString.appDirectory}\\${AppString.imageFolder}", style: TextStyle(fontSize: 10),),
 
                       ),
+                      SizedBox(height: 10,),
 
                       RaisedButton(onPressed: (){
                         captureAndSavePng();
@@ -110,7 +118,8 @@ class _QRHomePageState extends State<QRHomePage> {
                         child: Text(
                           "SAVE",
                           style: TextStyle(color: Colors.white),
-                        ),)
+                        ),),
+                      SizedBox(height: 10,),
                     ],
                   ),
                 ))

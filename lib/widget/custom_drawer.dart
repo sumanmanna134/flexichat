@@ -52,7 +52,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ListTile(
           leading: Icon(Icons.qr_code), title: Text(AppString.UPI_QR),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> QRHomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => QRHomePage()));
           },
         ),
         ListTile(
