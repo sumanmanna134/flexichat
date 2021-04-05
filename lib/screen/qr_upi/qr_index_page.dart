@@ -89,15 +89,17 @@ class _QRHomePageState extends State<QRHomePage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      SizedBox(height: 10,),
                       RepaintBoundary(
                         key:imageCaptureKey,
                         child: Container(
                           color: Colors.white,
                           child:QrImage(
+                            foregroundColor: Colors.green,
                             data: textToConvert,
-                            embeddedImage: AssetImage(Images.appIcon),
+                            embeddedImage: AssetImage(Images.appIcon ,),
                             embeddedImageStyle: QrEmbeddedImageStyle(
-                              size: Size(80, 80),
+                              size: Size(30, 30),
                             ),
                             version: QrVersions.auto,
                             size: 200,
