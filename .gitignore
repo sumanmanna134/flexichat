@@ -30,7 +30,6 @@
 .pub-cache/
 .pub/
 /build/app
-/build/flutter_assets
 /build/get_mac
 /build/kotlin
 
