@@ -1,6 +1,7 @@
 import 'package:flexi_chat/Store/UserStore.dart';
 import 'package:flexi_chat/main.dart';
 import 'package:flexi_chat/model/message_model.dart';
+import 'package:flexi_chat/screen/chatScreen.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/utils/scale.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,12 @@ class FavoriteContacts extends StatelessWidget {
                               },
                               onTap: (){
                                 userStore.setLongPress(false);
+                                if(!userStore.onLongPress){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>ChatScreen(user:userStore.getFavouriteContacts[index] , username:userStore.getFavouriteContacts[index].name)),
+                                  );
+                                }
                               },
                             ),
                             SizedBox(height: 6.0,),
