@@ -123,6 +123,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
 
@@ -154,8 +156,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     Text(
                       "Last seen today at 12:05",
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 10.0,
                       ),
+
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -165,25 +169,19 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         elevation: 0.0,
         actions: <Widget>[
-          IconButton(
+          screenWidth>800?IconButton(
             icon: Icon(Icons.video_call_rounded),
             iconSize: 30.0,
             color: Colors.white,
             onPressed: () {},
-          ),
-          IconButton(
+          ):SizedBox.shrink(),
+          screenWidth>800?IconButton(
             icon: Icon(Icons.add_call),
             iconSize: 30.0,
             color: Colors.white,
             onPressed: () {},
-          ),
+          ):SizedBox.shrink(),
 
-          IconButton(
-            icon: Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {},
-          ),
           Observer(
 
 
@@ -219,6 +217,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return[
                     PopupMenuItem(child: Icon(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav?Icons.favorite : Icons.favorite_border , color: Colors.red,), value: "makeFavourite",),
                     PopupMenuItem(child: Text("Block"), value: "block",),
+
 
                   ];
 
