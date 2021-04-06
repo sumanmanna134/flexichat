@@ -28,7 +28,9 @@ class FavoriteContacts extends StatelessWidget {
                     ),
                     iconSize: 30.0,
                     color: Colors.red,
-                    onPressed: () { userStore.removeFav(userStore.currentUserId); userStore.onLongPress=false;},
+                    onPressed: () {
+                      userStore.users[userStore.users.indexWhere((element) => element.id == userStore.currentUserId)].isFav=false;
+                      userStore.removeFav(userStore.currentUserId); userStore.onLongPress=false;},
                   )  : IconButton(
                     icon: Icon(
                       Icons.more_horiz,

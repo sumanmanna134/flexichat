@@ -1,9 +1,11 @@
+import 'package:flexi_chat/main.dart';
 import 'package:flexi_chat/model/message_model.dart';
 import 'package:flexi_chat/model/user_model.dart';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/utils/images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
@@ -16,6 +18,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
@@ -121,6 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
 
       appBar: AppBar(
 
@@ -180,20 +184,47 @@ class _ChatScreenState extends State<ChatScreen> {
             color: Colors.white,
             onPressed: () {},
           ),
+          Observer(
 
-          PopupMenuButton<String>(
 
-            onSelected: (value){
+            builder: (context) {
+              return PopupMenuButton<String>(
 
-            },
 
-            itemBuilder: (BuildContext context){
-              return[
-                PopupMenuItem(child: Text("Make Favourite"), value: "makeFavourite",),
-                PopupMenuItem(child: Text("Block"), value: "block",),
+                onSelected: (value){
 
-              ];
-            },
+                  if(value=="makeFavourite"){
+                    print(userStore.users.indexWhere((element) => element.id==widget.user.id));
+                    if(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav){
+                      print(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].toJson());
+                      userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav= false;
+                      userStore.removeFav(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].id);
+
+
+                      _displaySnackBar(context, "${widget.username} has been removed from your favourites", Colors.red);
+
+                    }else{
+                      print(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].toJson());
+                      userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav= true;
+                      userStore.makeFav(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].id);
+                      _displaySnackBar(context,"${widget.username} has been added to your favourites" , Colors.green);
+
+
+                    }
+                  }
+
+                },
+
+                itemBuilder: (BuildContext context){
+                  return[
+                    PopupMenuItem(child: Icon(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav?Icons.favorite : Icons.favorite_border , color: Colors.red,), value: "makeFavourite",),
+                    PopupMenuItem(child: Text("Block"), value: "block",),
+
+                  ];
+
+                },
+              );
+            }
           )
 
 
@@ -202,5 +233,10 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Container(child: Text(""),)
     );
+  }
+
+  _displaySnackBar(BuildContext context , String msg , Color bgColor) {
+    final snackBar = SnackBar(content: Text(msg,) , backgroundColor:bgColor,);
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
