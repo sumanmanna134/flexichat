@@ -25,6 +25,8 @@ final User currentUser = User(
   id: 0,
   name: 'Current User',
   imageUrl: Images.GREG,
+  isBlocked: false,
+  isFav: true,
 );
 
 // USERS
@@ -32,40 +34,53 @@ final User greg = User(
   id: 1,
   name: 'Greg',
   imageUrl: Images.GREG,
+  isBlocked: true,
+  isFav: false,
+
 );
 final User james = User(
   id: 2,
   name: 'James',
   imageUrl: Images.JAMES,
+  isBlocked: true,
+  isFav: false,
 );
 final User john = User(
   id: 3,
   name: 'John',
   imageUrl: Images.JHON,
+  isBlocked: false,
+  isFav: true,
 );
 final User olivia = User(
   id: 4,
   name: 'Olivia',
-  imageUrl: Images.OLIVIA
+  imageUrl: Images.OLIVIA,
+  isBlocked: true,
+  isFav: false,
 );
 final User sam = User(
   id: 5,
   name: 'Sam',
   imageUrl: Images.SAM,
+  isBlocked: false,
+  isFav: true,
 );
 final User sophia = User(
   id: 6,
   name: 'Sophia',
   imageUrl: Images.SHOPIA,
+  isBlocked: false,
+  isFav: false,
 );
 final User steven = User(
   id: 7,
   name: 'Steven',
   imageUrl: Images.STEFEN,
+  isBlocked: false,
+  isFav: false,
 );
 
-// FAVORITE CONTACTS
-List<User> favorites = [sam, steven, olivia, john, greg];
 
 // EXAMPLE CHATS ON HOME SCREEN
 List<Message> chats = [

@@ -1,3 +1,4 @@
+import 'package:flexi_chat/Store/UserStore.dart';
 import 'package:flexi_chat/Store/tabs.dart';
 import 'package:flexi_chat/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'screen/home_screen.dart';
 final tabsStore = Tabs();
+final userStore = UserStore();
 void main() {
   runApp(MyApp());
 }

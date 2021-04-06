@@ -1,7 +1,17 @@
+import 'package:flexi_chat/Store/UserStore.dart';
 import 'package:flexi_chat/model/message_model.dart';
 import 'package:flexi_chat/screen/chatScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class RecentChats extends StatelessWidget {
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import '../main.dart';
+class RecentChats extends StatefulWidget {
+  @override
+  _RecentChatsState createState() => _RecentChatsState();
+}
+
+class _RecentChatsState extends State<RecentChats> {
   @override
   Widget build(BuildContext context) {
     return Expanded(child: Container(
@@ -14,9 +24,13 @@ class RecentChats extends StatelessWidget {
         child: ListView.builder(itemCount: chats.length,
           itemBuilder:(BuildContext context, int index){
           final Message chat = chats[index];
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: favorites[index],)));
+          return Dismissible(
+            key: ObjectKey(chat.sender.id),
+            background:  _blockBgItem(),
+            secondaryBackground:_deleteBgItem(),
+            onDismissed: (DismissDirection direction){
+              String action = direction == DismissDirection.startToEnd? "has been Blocked From your Contact":"'s chat deleted";
+              Scaffold.of(context).showSnackBar(SnackBar(content: Text("${chat.sender.name}  $action")));
             },
             child: Container(
               margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 20.0),
@@ -87,7 +101,18 @@ class RecentChats extends StatelessWidget {
                         ),
                       )
                           : Text(''),
+
+
+
+
+
+
                     ],)
+                  // Observer(
+                  //   builder: (_) {
+                  //     return
+                  //   }
+
                 ],
               ),
             ),
@@ -95,5 +120,23 @@ class RecentChats extends StatelessWidget {
           },),
       ),
     ));
+  }
+
+  Widget _deleteBgItem(){
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 20),
+      color: Colors.red,
+      child: Icon(Icons.delete, color: Colors.white),
+    );
+  }
+
+  Widget _blockBgItem(){
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(left: 20),
+      color: Colors.blueGrey,
+      child: Icon(Icons.block_flipped, color: Colors.white , size: 30.0,),
+    );
   }
 }

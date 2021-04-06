@@ -1,11 +1,15 @@
 import 'package:flexi_chat/model/message_model.dart';
 import 'package:flexi_chat/model/user_model.dart';
+import 'package:flexi_chat/utils/AppColor.dart';
+import 'package:flexi_chat/utils/app_string.dart';
+import 'package:flexi_chat/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
+  final String username;
 
-  ChatScreen({this.user});
+  ChatScreen({@required this.user, @required this.username});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -117,60 +121,86 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+
       appBar: AppBar(
-        title: Text(
-          widget.user.name,
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
+
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: (){},
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(radius: 20, backgroundImage: AssetImage(widget.user.imageUrl),),
+                  ],
+                ),
+                SizedBox(width: 20,),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.user.name,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Last seen today at 12:05",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         elevation: 0.0,
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.video_call_rounded),
+            iconSize: 30.0,
+            color: Colors.white,
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.add_call),
+            iconSize: 30.0,
+            color: Colors.white,
+            onPressed: () {},
+          ),
+
           IconButton(
             icon: Icon(Icons.more_horiz),
             iconSize: 30.0,
             color: Colors.white,
             onPressed: () {},
           ),
+
+          PopupMenuButton<String>(
+
+            onSelected: (value){
+
+            },
+
+            itemBuilder: (BuildContext context){
+              return[
+                PopupMenuItem(child: Text("Make Favourite"), value: "makeFavourite",),
+                PopupMenuItem(child: Text("Block"), value: "block",),
+
+              ];
+            },
+          )
+
+
+
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
-                      return _buildMessage(message, isMe);
-                    },
-                  ),
-                ),
-              ),
-            ),
-            _buildMessageComposer(),
-          ],
-        ),
-      ),
+      body: Container(child: Text(""),)
     );
   }
 }

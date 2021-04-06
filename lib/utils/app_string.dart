@@ -14,6 +14,7 @@ abstract class AppString{
   static const String TODO = "Keep Your Tasks";
   static const String UPI_QR = "UPI QR";
   static const String FAVOURITE_CONTACTS = "Favourite Contacts";
+  static const String REMOVE_FAVOURITE_CONTACTS = "Remove From Favourites";
 
 
 
