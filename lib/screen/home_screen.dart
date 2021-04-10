@@ -1,4 +1,5 @@
 import 'package:flexi_chat/main.dart';
+import 'package:flexi_chat/model/message_model.dart';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/widget/category_selector.dart';
@@ -8,12 +9,16 @@ import 'package:flexi_chat/widget/favorite_contacts.dart';
 import 'package:flexi_chat/widget/recent_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+
+
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -46,16 +51,19 @@ class _HomeScreenState extends State<HomeScreen> {
     body: Column(
         children: [
           CategorySelector(),
-
           Expanded(child:
           Container(
             decoration: BoxDecoration(color:Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0) , topRight:Radius.circular(30.0) )),
-            child: Column(
-              children: [
-                FavoriteContacts(),
-                RecentChats()
-              ],
+            child: Observer(
+              builder: (_) {
+                return Column(
+                  children: [
+                    userStore.getFavouriteContacts.isNotEmpty?FavoriteContacts():SizedBox.shrink(),
+                    RecentChats()
+                  ],
+                );
+              }
             ),
           ))
 

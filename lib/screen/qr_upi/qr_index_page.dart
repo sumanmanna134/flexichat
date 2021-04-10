@@ -127,14 +127,16 @@ class _QRHomePageState extends State<QRHomePage> {
                 ))
           ],
         ) ,);
+    }else{
+      return Container(child: Text(""),);
     }
 
   }
 
   void captureAndSavePng() async{
     try {
-      RenderRepaintBoundary boundary = imageCaptureKey.currentContext.findRenderObject();
-      var image = await boundary.toImage();
+      RenderRepaintBoundary boundary = imageCaptureKey?.currentContext?.findRenderObject();
+      var image = await boundary?.toImage();
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
       String filename = "${DateTime.now().millisecondsSinceEpoch}.png";

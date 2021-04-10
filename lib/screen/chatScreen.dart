@@ -1,17 +1,25 @@
+import 'package:flexi_chat/main.dart';
 import 'package:flexi_chat/model/message_model.dart';
 import 'package:flexi_chat/model/user_model.dart';
+import 'package:flexi_chat/utils/AppColor.dart';
+import 'package:flexi_chat/utils/app_string.dart';
+import 'package:flexi_chat/utils/images.dart';
+import 'package:flexi_chat/utils/scale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
+  final String username;
 
-  ChatScreen({this.user});
+  ChatScreen({@required this.user, @required this.username});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
@@ -116,61 +124,126 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      key: _scaffoldKey,
+
+
       appBar: AppBar(
-        title: Text(
-          widget.user.name,
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
+        leadingWidth: 70,
+        leading:Row(
+          children: [
+          InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back , size: 24,) ,
+            ),
+            CircleAvatar(radius: 20, backgroundImage: AssetImage(widget.user.imageUrl),),
+          ],
+        ),
+
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: (){},
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.user.name,
+                      style: TextStyle(
+                        fontSize: 18.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Last seen today at 12:05",
+                      style: TextStyle(
+                        fontSize: 10.0,
+                      ),
+
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_horiz),
-            iconSize: 30.0,
+            icon: Icon(Icons.video_call_rounded),
+            iconSize: 20.0,
             color: Colors.white,
             onPressed: () {},
           ),
+          IconButton(
+            icon: Icon(Icons.add_call),
+            iconSize: 20.0,
+            color: Colors.white,
+            onPressed: () {},
+          ),
+
+          Observer(
+
+
+            builder: (context) {
+              return PopupMenuButton<String>(
+
+
+                onSelected: (value){
+
+                  if(value=="makeFavourite"){
+                    print(userStore.users.indexWhere((element) => element.id==widget.user.id));
+                    if(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav){
+                      print(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].toJson());
+                      userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav= false;
+                      userStore.removeFav(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].id);
+
+
+                      _displaySnackBar(context, "${widget.username} has been removed from your favourites", Colors.red);
+
+                    }else{
+                      print(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].toJson());
+                      userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav= true;
+                      userStore.makeFav(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].id);
+                      _displaySnackBar(context,"${widget.username} has been added to your favourites" , Colors.green);
+
+
+                    }
+                  }
+
+                },
+
+                itemBuilder: (BuildContext context){
+                  return[
+                    PopupMenuItem(child: Icon(userStore.users[userStore.users.indexWhere((element) => element.id==widget.user.id)].isFav?Icons.favorite : Icons.favorite_border , color: Colors.red,), value: "makeFavourite",),
+                    PopupMenuItem(child: Text("Block"), value: "block",),
+
+
+                  ];
+
+                },
+              );
+            }
+          )
+
+
+
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
-                      return _buildMessage(message, isMe);
-                    },
-                  ),
-                ),
-              ),
-            ),
-            _buildMessageComposer(),
-          ],
-        ),
-      ),
+      body: Container(child: Text(""),)
     );
+  }
+
+  _displaySnackBar(BuildContext context , String msg , Color bgColor) {
+    final snackBar = SnackBar(content: Text(msg,) , backgroundColor:bgColor,);
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
