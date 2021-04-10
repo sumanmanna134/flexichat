@@ -4,6 +4,7 @@ import 'package:flexi_chat/model/user_model.dart';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/utils/app_string.dart';
 import 'package:flexi_chat/utils/images.dart';
+import 'package:flexi_chat/utils/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -128,7 +129,20 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       key: _scaffoldKey,
 
+
       appBar: AppBar(
+        leadingWidth: 70,
+        leading:Row(
+          children: [
+          InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back , size: 24,) ,
+            ),
+            CircleAvatar(radius: 20, backgroundImage: AssetImage(widget.user.imageUrl),),
+          ],
+        ),
 
         title: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -136,12 +150,6 @@ class _ChatScreenState extends State<ChatScreen> {
             onTap: (){},
             child: Row(
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(radius: 20, backgroundImage: AssetImage(widget.user.imageUrl),),
-                  ],
-                ),
-                SizedBox(width: 20,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     Text(
                       widget.user.name,
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.5,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -169,18 +177,18 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         elevation: 0.0,
         actions: <Widget>[
-          screenWidth>800?IconButton(
+          IconButton(
             icon: Icon(Icons.video_call_rounded),
-            iconSize: 30.0,
+            iconSize: 20.0,
             color: Colors.white,
             onPressed: () {},
-          ):SizedBox.shrink(),
-          screenWidth>800?IconButton(
+          ),
+          IconButton(
             icon: Icon(Icons.add_call),
-            iconSize: 30.0,
+            iconSize: 20.0,
             color: Colors.white,
             onPressed: () {},
-          ):SizedBox.shrink(),
+          ),
 
           Observer(
 
