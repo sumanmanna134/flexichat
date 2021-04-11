@@ -1,3 +1,4 @@
+import 'package:flexi_chat/screen/home_screen.dart';
 import 'package:flexi_chat/utils/AppColor.dart';
 import 'package:flexi_chat/widget/action_button.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,9 @@ class _LogInState extends State<LogIn> {
                         height: 64,
                       ),
 
-                      actionButton("Log In"),
+                      actionButton("Log In" , onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                      }),
 
                       SizedBox(
                         height: 32,
