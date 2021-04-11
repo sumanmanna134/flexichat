@@ -1,5 +1,6 @@
 import 'package:flexi_chat/Store/UserStore.dart';
 import 'package:flexi_chat/Store/tabs.dart';
+import 'package:flexi_chat/screen/authscreen/authScreen.dart';
 import 'package:flexi_chat/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flex Chat',
       theme: AppTheme(),
-      home: HomeScreen()
+      home: AuthScreen()
     );
   }
 }
