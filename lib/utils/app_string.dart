@@ -29,3 +29,7 @@ abstract class AppString{
 }
 
 final List<String> tabs = [AppString.MESSAGES, AppString.PERSON_ONLINE, AppString.REQUESTS];
+
+enum Option {
+  LogIn, SignUp
+}

@@ -3,7 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "3c9cfddaff0c124967d8d872abd0398f",
+  "assets/AssetManifest.json": "d09b61332bb90e5d56396d2588a73d17",
+"assets/assets/images/chat.jpg": "571c34572dc95d37d879eb9c10a4d90b",
 "assets/assets/images/greg.jpg": "b779eca12905edb571bcf6ddaad660b5",
 "assets/assets/images/icon.png": "ab2a9a624c07746cd1fc79da25d2c09e",
 "assets/assets/images/james.jpg": "402022abfd4b631c3093c0f2054e4a06",
@@ -24,9 +25,9 @@ const RESOURCES = {
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "5f86d0850bd3a93aec0f2380d235ff54",
-"/": "5f86d0850bd3a93aec0f2380d235ff54",
-"main.dart.js": "60bc7488d85e69cc8b392e8f301c9458",
+"index.html": "51aedf51f6f8fd0e70c2c2bad89f4cad",
+"/": "51aedf51f6f8fd0e70c2c2bad89f4cad",
+"main.dart.js": "f0cebf78d79e9358971f9eae0c961a32",
 "manifest.json": "b01156e20a57d1a2535dff68013b3122",
 "version.json": "a8d43626fbe97a21217210179b5328f2"
 };
